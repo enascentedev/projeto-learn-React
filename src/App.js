@@ -1,44 +1,18 @@
-import { useEffect, useState } from "react";
-import'./style.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import NutriView from './view/NutriView'
+import AboutView from './view/AboutView'
 
 function App() {
-  const [nutri, setNutri] = useState([]);
-
-  useEffect(() => {
-    function loadApi() {
-      let url = "https://sujeitoprogramador.com/rn-api/?api=posts";
-
-      fetch(url)
-        .then((r) => r.json())
-        .then((json) => {
-         setNutri(json);
-        })
-    }
-
-    loadApi();
-  }, []);
-
-	return (
-		<div className="container">
-			<header>
-				<strong>React Nutri</strong>
-			</header>
-	
-			{nutri.map((item) => {
-				return (
-					<article key={item.id} className="post">
-						<strong className="titulo">{item.titulo}</strong>
-						<img src={item.capa} alt={item.titulo} className="capa" />
-						<p className="subtitulo">
-							{item.subtitulo}
-						</p>
-						<a className="botao">Acessar</a>
-					</article>
-				)
-			})}
-		</div>
-	);
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<NutriView />} exact />
+        <Route path="/about" element={<AboutView />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
-
