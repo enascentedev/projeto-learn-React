@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
-import Post from "./Post";
+// Nutri.jsx
+import useNutri from '../state/useNutri';
+import Post from './Post';
 
 function Nutri() {
-  const [nutri, setNutri] = useState([]);
 
-  useEffect(() => {
-    function loadApi() {
-      let url = "https://sujeitoprogramador.com/rn-api/?api=posts";
+  const { nutri, isLoading, error } = useNutri();
+	console.log(nutri);
 
-      fetch(url)
-        .then((r) => r.json())
-        .then((json) => {
-          setNutri(json);
-        });
-    }
-
-    loadApi();
-  }, []);
+	if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+  if (error) return <p>Ocorreu um erro ao carregar os dados.</p>;
 
   return (
     <div>
